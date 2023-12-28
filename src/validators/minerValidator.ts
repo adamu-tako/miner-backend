@@ -17,18 +17,25 @@ export default class MinerValidator {
   async minerCreateValidator(req: Request, res: Response, next: NextFunction) {
     // create schema object
     const schema = Joi.object({
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      jobTitle: Joi.string().required(),
-      companyName: Joi.string().required(),
-      companyId: Joi.string(),
-      address: Joi.string().required(),
+      fullName: Joi.string().required(),
       phoneNumber: Joi.string()
         .regex(/^[0-9]{10}$/)
         .messages({
           "string.pattern.base": `Phone number must have 10 digits.`,
         })
         .required(),
+      state: Joi.string().required(),
+      lga: Joi.string().required(),
+      ward: Joi.string().required(),
+      address: Joi.string().required(),
+      experience: Joi.string().required(),
+      companyName: Joi.string().required(),
+      guarantor: Joi.string(),
+      guarantorPhone: Joi.string()
+        .regex(/^[0-9]{10}$/)
+        .messages({
+          "string.pattern.base": `Guarantor's phone number must have 10 digits.`,
+        }),
     });
 
     // schema options

@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/sequelize";
-import { MinerModelI } from "./interfaces/IMiners";
 
-export const Miners = sequelize.define<MinerModelI>(
+export const Miners = sequelize.define(
   "Miners",
   {
     minerId: {
@@ -10,11 +9,7 @@ export const Miners = sequelize.define<MinerModelI>(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
+    fullName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -30,15 +25,44 @@ export const Miners = sequelize.define<MinerModelI>(
         key: "companyId",
       },
     },
-    jobTitle: {
+    address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING,
-    },
     phoneNumber: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lga: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    ward: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    guarantor: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    guarantorPhone: {
+      type: DataTypes.STRING,
+    },
+    experience: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    createdBy: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "User",
+        key: "userId",
+      },
     },
     createdAt: {
       type: DataTypes.DATE,

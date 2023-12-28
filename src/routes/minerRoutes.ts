@@ -13,11 +13,6 @@ router.post(
   minerValidator.minerCreateValidator,
   minerController.createMiner
 );
-// router.post(
-//   "/create",
-//   auth(),
-//   userValidator.userCreateValidator,
-//   authController.createUser
-// );
+router.post("/getAll", auth(), minerController.getMiner);
 
 export default router;

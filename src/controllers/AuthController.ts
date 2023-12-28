@@ -10,6 +10,7 @@ import { sequelizeTr } from "../config/sequelize";
 import { Token } from "../models/Token";
 import ApiError from "../helpers/ApiError";
 import { Op } from "sequelize";
+import { errorHandler } from "../middlewares/error";
 dotenv.config();
 const SecretKey = process.env.SECRET_KEY;
 

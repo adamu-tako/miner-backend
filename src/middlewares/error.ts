@@ -15,11 +15,6 @@ export const errorHandler = (
 ) => {
   let { statusCode, message } = err;
 
-  //   if (nodeEnv === "production" && !err.isOperational) {
-  //     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-  //     message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
-  //   }
-
   res.locals.errorMessage = err.message;
 
   const response = {
@@ -50,5 +45,4 @@ export const errorConverter = (
     error = new ApiError(statusCode, message, false, err.stack);
   }
   errorHandler(error, req, res, next);
-  next(error);
 };

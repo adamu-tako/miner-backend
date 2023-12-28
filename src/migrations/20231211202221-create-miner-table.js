@@ -8,11 +8,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      lastName: {
+      fullName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -28,15 +24,44 @@ module.exports = {
           key: "companyId",
         },
       },
-      jobTitle: {
+      address: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      address: {
-        type: Sequelize.STRING,
-      },
       phoneNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lga: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      ward: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      guarantor: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      guarantorPhone: {
+        type: Sequelize.STRING,
+      },
+      experience: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      createdBy: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "User",
+          key: "userId",
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -51,12 +76,9 @@ module.exports = {
         defaultValue: null,
       },
     });
-
-    await queryInterface.addIndex("Miners", ["companyId"]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeIndex("Miners", ["companyId"]);
     await queryInterface.dropTable("Miners");
   },
 };

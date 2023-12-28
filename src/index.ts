@@ -3,12 +3,13 @@ import responseHandler from "./helpers/responseHandler";
 import authRoutes from "./routes/authRoute";
 import minerRoute from "./routes/minerRoutes";
 import companyRoutes from "./routes/companyRoutes";
+import uploadRoute from "./routes/uploadRoute";
 import cors from "cors";
 import dontenv from "dotenv";
 import { sequelize } from "./config/sequelize";
 import ApiError from "./helpers/ApiError";
 import httpStatus from "http-status";
-import { errorHandler } from "./middlewares/error";
+import { errorConverter, errorHandler } from "./middlewares/error";
 dontenv.config();
 
 const app = express();
@@ -19,7 +20,6 @@ app.use(
     origin: "*",
   })
 );
-app.use(errorHandler);
 
 app.use("/status", async (req: Request, res: Response) => {
   const response = responseHandler.returnSuccess(200, "Okay");
@@ -29,10 +29,14 @@ app.use("/status", async (req: Request, res: Response) => {
 app.use("/auth", authRoutes);
 app.use("/miner", minerRoute);
 app.use("/company", companyRoutes);
+app.use("/", uploadRoute);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  next(new ApiError(httpStatus.NOT_FOUND, "Not foundedfkdf"));
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
+
+app.use(errorConverter);
+app.use(errorHandler);
 
 const start = async (): Promise<void> => {
   try {
